@@ -4,127 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Làm người iu tớ khum?</title>
-  <style>
-    body {
-      background: linear-gradient(135deg, #ffe0ec, #f9f6ff);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
-      overflow: hidden;
-    }
-    .container {
-      background: rgba(255,255,255,0.9);
-      padding: 32px 40px 48px 40px;
-      border-radius: 30px;
-      box-shadow: 0 10px 32px #ffc0cb99;
-      text-align: center;
-      position: relative;
-    }
-    .monkey {
-      width: 170px;
-      height: 170px;
-      border-radius: 50%;
-      border: 4px solid #ffb6d5;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 16px #fff0f7;
-      animation: bounce 1s infinite alternate;
-    }
-    @keyframes bounce {
-      0% { transform: translateY(0);}
-      100% { transform: translateY(-30px);}
-    }
-    .question {
-      font-size: 2rem;
-      font-weight: bold;
-      color: #d94687;
-      margin-bottom: 32px;
-      text-shadow: 0 2px 8px #fff0f7;
-      letter-spacing: 1px;
-      animation: heartBeat 1.8s infinite;
-    }
-    @keyframes heartBeat {
-      0%, 100% { transform: scale(1);}
-      20% { transform: scale(1.05);}
-      40% { transform: scale(0.95);}
-      60% { transform: scale(1.06);}
-      80% { transform: scale(0.98);}
-    }
-    .btn-group {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      margin-top: 12px;
-      min-height: 60px;
-      position: relative;
-    }
-    .btn {
-      padding: 12px 32px;
-      border-radius: 30px;
-      border: none;
-      font-size: 1.2rem;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 2px 10px #ffcce6a0;
-      transition: background 0.18s, transform 0.13s;
-      outline: none;
-    }
-    .btn-yes {
-      background: linear-gradient(90deg, #ff63a5, #ffa5d8);
-      color: #fff;
-      font-size: 1.28rem;
-      border: 2px solid #ffb6d5;
-      animation: yesBounce 1s infinite alternate;
-    }
-    @keyframes yesBounce {
-      0% { transform: scale(1);}
-      100% { transform: scale(1.08);}
-    }
-    .btn-no {
-      background: #fff;
-      color: #ff63a5;
-      border: 2px solid #ffb6d5;
-      min-width: 68px;
-      position: absolute;
-      top: 0;
-      left: 200px;
-      transition: left 0.2s, top 0.2s;
-    }
-    .message {
-      margin-top: 30px;
-      font-size: 1.45rem;
-      color: #c02663;
-      font-weight: bold;
-      text-shadow: 0 2px 10px #fff0f7;
-      animation: pop 0.6s;
-    }
-    @keyframes pop {
-      0% { transform: scale(0);}
-      90% { transform: scale(1.2);}
-      100% { transform: scale(1);}
-    }
-    /* Hiệu ứng pháo hoa */
-    .firework {
-      position: absolute;
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: #ff63a5;
-      opacity: 0.8;
-      pointer-events: none;
-      animation: explode 0.9s linear forwards;
-    }
-    @keyframes explode {
-      0% { transform: scale(1) translate(0, 0);}
-      60% { opacity: 1;}
-      100% { opacity: 0; transform: scale(1.7) translate(var(--x), var(--y));}
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-    <img src="https://media.giphy.com/media/3oKIPnAiaMCws8nOsE/giphy.gif" alt="Monkey" class="monkey" id="monkey-img">
+    <img src="https://media.tenor.com/H7XLawjk5XYAAAAM/monkey-baby.gif" alt="Monkey" class="monkey" id="monkey-img">
     <div class="question">Cậu có muốn làm người iu tớ khum?</div>
     <div class="btn-group" id="btn-group">
       <button class="btn btn-yes" id="btn-yes">Dạ có 💘</button>
@@ -136,15 +20,20 @@
   <script>
     // Tạo nút "Honggg" chạy trốn
     const btnNo = document.getElementById('btn-no');
-    const btnGroup = document.getElementById('btn-group');
     btnNo.addEventListener('mouseover', moveNoBtn);
     btnNo.addEventListener('click', moveNoBtn);
 
     function moveNoBtn() {
-      const groupRect = btnGroup.getBoundingClientRect();
-      let x = Math.random() * (groupRect.width - 80);
-      let y = Math.random() * 30;
-      // Giới hạn vùng chạy để không ra ngoài
+      if (btnNo.style.position !== 'fixed') {
+        btnNo.style.position = 'fixed';
+        btnNo.style.zIndex = 1000;
+      }
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const btnWidth = btnNo.offsetWidth;
+      const btnHeight = btnNo.offsetHeight;
+      let x = Math.random() * (vw - btnWidth);
+      let y = Math.random() * (vh - btnHeight);
       btnNo.style.left = `${x}px`;
       btnNo.style.top = `${y}px`;
     }
@@ -157,7 +46,7 @@
         "Yeee, tớ iu cậu nhìu nhìu 💞🐵<br>Chúc chúng mình mãi hạnh phúc nhoaaaa!";
       document.getElementById('btn-group').style.display = 'none';
       // Đổi ảnh con khỉ hạnh phúc luôn nếu thích
-      document.getElementById('monkey-img').src = "https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif";
+      document.getElementById('monkey-img').src = "https://c.tenor.com/6W3uiyAxkXUAAAAC/tkthao219-bubududu.gif";
     };
 
     // Hiệu ứng pháo hoa mini
