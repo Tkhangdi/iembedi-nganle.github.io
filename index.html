@@ -42,6 +42,7 @@
     // Hiệu ứng khi bấm "Dạ có"
     document.getElementById('btn-yes').onclick = function() {
       showFireworks();
+      document.querySelector('.question').style.display = 'none';
       document.getElementById('message').style.display = 'block';
       document.getElementById('message').innerHTML = 
         "Yeee, tớ iu cậu nhìu nhìu 💞🐵<br>Chúc chúng mình mãi hạnh phúc nhoaaaa!";
