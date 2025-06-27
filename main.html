@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Làm người iu tớ khum?</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <img src="https://media.tenor.com/H7XLawjk5XYAAAAM/monkey-baby.gif" alt="Monkey" class="monkey" id="monkey-img">
+    <div class="question">Cậu có muốn làm người iu tớ khum?</div>
+    <div class="btn-group" id="btn-group">
+      <button class="btn btn-yes" id="btn-yes">Dạ có 💘</button>
+      <button class="btn btn-no" id="btn-no">Honggg</button>
+    </div>
+    <div class="message" id="message" style="display: none;"></div>
+  </div>
+
+  <script>
+    // Tạo nút "Honggg" chạy trốn
+    const btnNo = document.getElementById('btn-no');
+    btnNo.addEventListener('mouseover', moveNoBtn);
+    btnNo.addEventListener('click', moveNoBtn);
+
+    function moveNoBtn() {
+      if (btnNo.style.position !== 'fixed') {
+        btnNo.style.position = 'fixed';
+        btnNo.style.zIndex = 1000;
+      }
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const btnWidth = btnNo.offsetWidth;
+      const btnHeight = btnNo.offsetHeight;
+      let x = Math.random() * (vw - btnWidth);
+      let y = Math.random() * (vh - btnHeight);
+      btnNo.style.left = `${x}px`;
+      btnNo.style.top = `${y}px`;
+    }
+
+    // Hiệu ứng khi bấm "Dạ có"
+    document.getElementById('btn-yes').onclick = function() {
+      showFireworks();
+      document.getElementById('message').style.display = 'block';
+      document.getElementById('message').innerHTML = 
+        "Yeee, tớ iu cậu nhìu nhìu 💞🐵<br>Chúc chúng mình mãi hạnh phúc nhoaaaa!";
+      document.getElementById('btn-group').style.display = 'none';
+      // Đổi ảnh con khỉ hạnh phúc luôn nếu thích
+      document.getElementById('monkey-img').src = "https://c.tenor.com/6W3uiyAxkXUAAAAC/tkthao219-bubududu.gif";
+    };
+
+    // Hiệu ứng pháo hoa mini
+    function showFireworks() {
+      for (let i = 0; i < 18; i++) {
+        setTimeout(() => {
+          const firework = document.createElement('div');
+          firework.className = 'firework';
+          let angle = Math.random() * 2 * Math.PI;
+          let dist = 110 + Math.random()*35;
+          let x = Math.cos(angle) * dist;
+          let y = Math.sin(angle) * dist;
+          firework.style.setProperty('--x', `${x}px`);
+          firework.style.setProperty('--y', `${y}px`);
+          firework.style.left = '50%';
+          firework.style.top = '60%';
+          firework.style.background = `hsl(${Math.random()*360}, 80%, 65%)`;
+          firework.style.zIndex = 10;
+          document.body.appendChild(firework);
+          setTimeout(()=> firework.remove(), 950);
+        }, i*60);
+      }
+    }
+  </script>
+</body>
+</html>
